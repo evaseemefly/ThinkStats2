@@ -55,10 +55,12 @@ def ReadFemPreg(dct_file='2002FemPreg.dct',
 
 def CleanFemPreg(df):
     """Recodes variables from the pregnancy frame.
-
+       数据清洗使用
     df: DataFrame
     """
     # mother's age is encoded in centiyears; convert to years
+    # 母亲在孕辰结束时的年纪
+    # 单位0.01
     df.agepreg /= 100.0
 
     # birthwgt_lb contains at least one bogus value (51 lbs)
@@ -78,6 +80,8 @@ def CleanFemPreg(df):
     # convert to a single column in lb
     # NOTE: creating a new column requires dictionary syntax,
     # not attribute assignment (like df.totalwgt_lb)
+    # 生成一个新列
+    # 将盎司和磅进行相加
     df['totalwgt_lb'] = df.birthwgt_lb + df.birthwgt_oz / 16.0    
 
     # due to a bug in ReadStataDct, the last variable gets clipped;
